@@ -1,0 +1,26 @@
+{
+  "book": [
+    {
+      "title": "O senhor dos aneis",
+      "isbn": "1231231231231",
+      "description": "teste",
+      "publicationYear": 1900,
+      "quantity": 10,
+      "genre": "fantasy",
+      "author": "jrr",
+      "publisher": "martins",
+      "id": 1
+    },
+    {
+      "title": "Clean code",
+      "isbn": "1231231231233",
+      "description": "pitrpsssssdsdsesrsfgsgsegsegsgseg",
+      "publicationYear": 2006,
+      "quantity": 233,
+      "genre": "adventure",
+      "author": "cs",
+      "publisher": "martins",
+      "id": 2
+    }
+  ]
+}

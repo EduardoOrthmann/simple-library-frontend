@@ -1,0 +1,106 @@
+<div mat-dialog-title>
+  <h1>Livro</h1>
+</div>
+
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Título</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: O Senhor dos Anéis"
+          formControlName="title"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>ISBN</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: 978-3-16-148410-0"
+          formControlName="isbn"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex: O Senhor dos Anéis é um livro de fantasia épica..."
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Ano de publicação</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Ex: 1954"
+          formControlName="publicationYear"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Quantidade</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Ex: 10"
+          formControlName="quantity"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Gênero</mat-label>
+        <mat-select formControlName="genre">
+          <mat-option value="fantasy">Fantasia</mat-option>
+          <mat-option value="romance">Romance</mat-option>
+          <mat-option value="adventure">Aventura</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Autor</mat-label>
+        <mat-select formControlName="author">
+          <mat-option value="jrr">J. R. R. Tolkien</mat-option>
+          <mat-option value="jk">J. K. Rowling</mat-option>
+          <mat-option value="cs">C. S. Lewis</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Editora</mat-label>
+        <mat-select formControlName="publisher">
+          <mat-option value="martins">Martins Fontes</mat-option>
+          <mat-option value="rocco">Rocco</mat-option>
+          <mat-option value="saraiva">Saraiva</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-raised-button [mat-dialog-close]="false" type="button">Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [mat-dialog-close]="true"
+    >
+      {{ data ? "Atualizar" : "Adicionar" }}
+    </button>
+  </div>
+</form>
