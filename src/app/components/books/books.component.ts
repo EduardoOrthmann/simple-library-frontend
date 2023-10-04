@@ -1,20 +1,30 @@
-import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditBookDialogComponent } from '../add-edit-book-dialog/add-edit-book-dialog.component';
 import { BookService } from 'src/app/services/book.service';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort, MatSortModule} from '@angular/material/sort';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.scss']
+  styleUrls: ['./books.component.scss'],
 })
 export class BooksComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'isbn', 'description', 'publicationYear', 'quantity', 'genre', 'author', 'publisher', 'actions'];
+  displayedColumns: string[] = [
+    'id',
+    'title',
+    'isbn',
+    'description',
+    'publicationYear',
+    'quantity',
+    'genre',
+    'author',
+    'publisher',
+    'actions',
+  ];
   dataSource!: MatTableDataSource<any>;
   MAX_VISIBLE_STRING_LENGTH = 15;
 
@@ -24,7 +34,7 @@ export class BooksComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private bookService: BookService) {}
+  constructor(private dialog: MatDialog, private bookService: BookService, private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.getBooks();
@@ -42,7 +52,7 @@ export class BooksComponent implements OnInit {
 
   openEditDialog(data: any) {
     const dialogRef = this.dialog.open(AddEditBookDialogComponent, {
-      data
+      data,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -66,10 +76,12 @@ export class BooksComponent implements OnInit {
   deleteBook(id: number) {
     this.bookService.deleteBook(id).subscribe({
       next: () => {
-        alert('Book deleted successfully')
+        this.snackbarService.openSnackBar('Livro deletado com sucesso', 'done');
         this.getBooks();
       },
-      error: console.log,
+      error: () => {
+        this.snackbarService.openSnackBar('Erro ao deletar livro', 'done');
+      },
     });
   }
 

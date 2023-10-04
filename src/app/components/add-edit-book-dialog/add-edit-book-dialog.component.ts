@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BookService } from 'src/app/services/book.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-add-edit-book-dialog',
@@ -16,7 +17,8 @@ export class AddEditBookDialogComponent implements OnInit {
     private fb: FormBuilder,
     private bookService: BookService,
     private dialogRef: MatDialogRef<AddEditBookDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private snackbarService: SnackbarService
   ) {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
@@ -43,21 +45,21 @@ export class AddEditBookDialogComponent implements OnInit {
           .updateBook(this.data.id, this.bookForm.value)
           .subscribe({
             next: (res: any) => {
-              alert('Book updated successfully');
+              this.snackbarService.openSnackBar('Livro atualizado com sucesso', 'done');
               this.dialogRef.close(true);
             },
             error: (err: any) => {
-              console.log(err);
+              this.snackbarService.openSnackBar('Erro ao atualizar livro', 'done');
             },
           });
       } else {
         this.bookService.addBook(this.bookForm.value).subscribe({
           next: (res: any) => {
-            alert('Book added successfully');
+            this.snackbarService.openSnackBar('Livro adicionado com sucesso', 'done');
             this.dialogRef.close(true);
           },
           error: (err: any) => {
-            console.log(err);
+            this.snackbarService.openSnackBar('Erro ao adicionar livro', 'done');
           },
         });
       }
