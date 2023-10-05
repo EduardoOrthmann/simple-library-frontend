@@ -1,11 +1,12 @@
+import { DialogService } from './../../services/dialog.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { AddEditBookDialogComponent } from '../add-edit-book-dialog/add-edit-book-dialog.component';
 import { BookService } from 'src/app/services/book.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import Book from 'src/app/interfaces/Book';
 
 @Component({
   selector: 'app-books',
@@ -25,8 +26,9 @@ export class BooksComponent implements OnInit {
     'publisher',
     'actions',
   ];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<Book>;
   MAX_VISIBLE_STRING_LENGTH = 15;
+  MAX_VISIBLE_UUID_LENGTH = 5;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -34,58 +36,44 @@ export class BooksComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private dialog: MatDialog, private bookService: BookService, private snackbarService: SnackbarService) {}
+  constructor(private dialog: DialogService<Book>, private bookService: BookService, private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
-    this.getBooks();
+    this.getAll();
   }
 
-  openSaveDialog() {
-    const dialogRef = this.dialog.open(AddEditBookDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getBooks();
-      }
-    });
+  openDialog(data?: Book): void {
+    this.dialog.openDialog(AddEditBookDialogComponent, () => this.getAll(), data);
   }
 
-  openEditDialog(data: any) {
-    const dialogRef = this.dialog.open(AddEditBookDialogComponent, {
-      data,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getBooks();
-      }
-    });
-  }
-
-  getBooks() {
-    this.bookService.getBooks().subscribe({
-      next: (res: any) => {
+  getAll(): void {
+    this.bookService.getAll().subscribe({
+      next: (res: Book[]) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      error: console.log,
+      error: (err: Error) => {
+        this.snackbarService.openSnackBar('Erro ao carregar os livros', 'done');
+        console.log(err);
+      }
     });
   }
 
-  deleteBook(id: number) {
-    this.bookService.deleteBook(id).subscribe({
+  delete(id: number): void {
+    this.bookService.delete(id).subscribe({
       next: () => {
         this.snackbarService.openSnackBar('Livro deletado com sucesso', 'done');
-        this.getBooks();
+        this.getAll();
       },
-      error: () => {
+      error: (err: Error) => {
         this.snackbarService.openSnackBar('Erro ao deletar livro', 'done');
+        console.log(err);
       },
     });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
