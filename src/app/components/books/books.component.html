@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <button mat-raised-button color="primary" (click)="openDialog()">
+  <button mat-raised-button color="primary" (click)="openSaveDialog()">
     Adicionar Livro
   </button>
 
@@ -18,9 +18,7 @@
       <!-- ID Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id.length > MAX_VISIBLE_UUID_LENGTH
-          ? (row.id | slice : 0 : MAX_VISIBLE_UUID_LENGTH) + "..."
-          : row.id }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
       </ng-container>
 
       <!-- Title Column -->
@@ -104,7 +102,7 @@
             mat-icon-button
             color="primary"
             aria-label="Edit"
-            (click)="openDialog(row)"
+            (click)="openEditDialog(row)"
             class="edit-button"
           >
             <mat-icon>edit</mat-icon>
@@ -113,7 +111,7 @@
             mat-icon-button
             color="warn"
             aria-label="Delete"
-            (click)="delete(row.id)"
+            (click)="deleteBook(row.id)"
             class="delete-button"
           >
             <mat-icon>delete</mat-icon>
