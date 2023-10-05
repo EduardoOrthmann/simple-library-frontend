@@ -21,6 +21,17 @@
       "author": "jrr",
       "publisher": "martins",
       "id": 2
+    },
+    {
+      "title": "adasdas",
+      "isbn": "12312",
+      "description": "123weqe",
+      "publicationYear": 123,
+      "quantity": 12,
+      "genre": "romance",
+      "author": "jrr",
+      "publisher": "rocco",
+      "id": 3
     }
   ]
 }

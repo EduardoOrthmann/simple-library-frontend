@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <button mat-raised-button color="primary" (click)="openSaveDialog()">
+  <button mat-raised-button color="primary" (click)="openDialog()">
     Adicionar Livro
   </button>
 
@@ -102,7 +102,7 @@
             mat-icon-button
             color="primary"
             aria-label="Edit"
-            (click)="openEditDialog(row)"
+            (click)="openDialog(row)"
             class="edit-button"
           >
             <mat-icon>edit</mat-icon>

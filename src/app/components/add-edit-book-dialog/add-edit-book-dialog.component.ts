@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { BookService } from 'src/app/services/book.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import Book from 'src/app/interfaces/Book';
 
 @Component({
   selector: 'app-add-edit-book-dialog',
@@ -17,7 +18,7 @@ export class AddEditBookDialogComponent implements OnInit {
     private fb: FormBuilder,
     private bookService: BookService,
     private dialogRef: MatDialogRef<AddEditBookDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Book,
     private snackbarService: SnackbarService
   ) {
     this.bookForm = this.fb.group({
@@ -33,36 +34,34 @@ export class AddEditBookDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data) {
-      this.bookForm.patchValue(this.data);
-    }
+    if (!this.data) return;
+
+    this.bookForm.patchValue(this.data);
   }
 
   onSubmit() {
-    if (this.bookForm.valid) {
-      if (this.data) {
-        this.bookService
-          .updateBook(this.data.id, this.bookForm.value)
-          .subscribe({
-            next: (res: any) => {
-              this.snackbarService.openSnackBar('Livro atualizado com sucesso', 'done');
-              this.dialogRef.close(true);
-            },
-            error: (err: any) => {
-              this.snackbarService.openSnackBar('Erro ao atualizar livro', 'done');
-            },
-          });
-      } else {
-        this.bookService.addBook(this.bookForm.value).subscribe({
-          next: (res: any) => {
-            this.snackbarService.openSnackBar('Livro adicionado com sucesso', 'done');
-            this.dialogRef.close(true);
-          },
-          error: (err: any) => {
-            this.snackbarService.openSnackBar('Erro ao adicionar livro', 'done');
-          },
-        });
-      }
-    }
+    if (this.bookForm.invalid) return;
+
+    const bookObservable = this.data
+      ? this.bookService.updateBook(this.data.id, this.bookForm.value)
+      : this.bookService.addBook(this.bookForm.value);
+
+    bookObservable.subscribe({
+      next: () => {
+        this.snackbarService.openSnackBar(
+          this.data
+            ? 'Livro atualizado com sucesso'
+            : 'Livro adicionado com sucesso',
+          'done'
+        );
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.snackbarService.openSnackBar(
+          this.data ? 'Erro ao atualizar livro' : 'Erro ao adicionar livro',
+          'done'
+        );
+      },
+    });
   }
 }
