@@ -43,8 +43,8 @@ export class AddEditBookDialogComponent implements OnInit {
     if (this.bookForm.invalid) return;
 
     const bookObservable = this.data
-      ? this.bookService.updateBook(this.data.id, this.bookForm.value)
-      : this.bookService.addBook(this.bookForm.value);
+      ? this.bookService.update(this.data.id, this.bookForm.value)
+      : this.bookService.save(this.bookForm.value);
 
     bookObservable.subscribe({
       next: () => {

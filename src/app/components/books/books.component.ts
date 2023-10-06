@@ -39,15 +39,15 @@ export class BooksComponent implements OnInit {
   constructor(private dialog: DialogService<Book>, private bookService: BookService, private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
-    this.getBooks();
+    this.getAll();
   }
 
   openDialog(data?: Book): void {
-    this.dialog.openDialog(AddEditBookDialogComponent, () => this.getBooks(), data);
+    this.dialog.openDialog(AddEditBookDialogComponent, () => this.getAll(), data);
   }
 
-  getBooks() {
-    this.bookService.getBooks().subscribe({
+  getAll() {
+    this.bookService.getAll().subscribe({
       next: (res: Book[]) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
@@ -60,11 +60,11 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  deleteBook(id: number): void {
-    this.bookService.deleteBook(id).subscribe({
+  delete(id: number): void {
+    this.bookService.delete(id).subscribe({
       next: () => {
         this.snackbarService.openSnackBar('Livro deletado com sucesso', 'done');
-        this.getBooks();
+        this.getAll();
       },
       error: (err: Error) => {
         this.snackbarService.openSnackBar('Erro ao deletar livro', 'done');
