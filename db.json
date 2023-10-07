@@ -9,7 +9,7 @@
       "genre": "fantasy",
       "author": "jrr",
       "publisher": "rocco",
-      "id": 1
+      "id": "eb409866-b9c0-459a-9abb-f2b4a5c33b6a"
     },
     {
       "title": "clean code",
@@ -20,7 +20,7 @@
       "genre": "fantasy",
       "author": "jrr",
       "publisher": "martins",
-      "id": 2
+      "id": "2a6598d9-c530-474f-adb5-cf901042a348"
     },
     {
       "title": "adasdas",
@@ -31,7 +31,18 @@
       "genre": "romance",
       "author": "jrr",
       "publisher": "rocco",
-      "id": 3
+      "id": "9e95f1e3-b07c-4ba1-b60e-e6a9ffca4902"
+    },
+    {
+      "title": "teste",
+      "isbn": "123",
+      "description": "teste",
+      "publicationYear": 123,
+      "quantity": 12,
+      "genre": "fantasy",
+      "author": "jrr",
+      "publisher": "martins",
+      "id": "76aa7178-45d7-4e0e-9c4e-539f0e704ee5"
     }
   ]
 }

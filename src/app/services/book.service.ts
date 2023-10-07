@@ -6,7 +6,7 @@ import { BaseCrudService } from './base-crud.service';
 @Injectable({
   providedIn: 'root',
 })
-export class BookService extends BaseCrudService<Book, number> {
+export class BookService extends BaseCrudService<Book, string> {
   constructor(http: HttpClient) {
     super(http, 'http://localhost:3000/book');
   }

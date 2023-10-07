@@ -1,5 +1,4 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { AddEditBookDialogComponent } from '../add-edit-book-dialog/add-edit-book-dialog.component';
 import { BookService } from 'src/app/services/book.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -60,7 +59,7 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  delete(id: number): void {
+  delete(id: string): void {
     this.bookService.delete(id).subscribe({
       next: () => {
         this.snackbarService.openSnackBar('Livro deletado com sucesso', 'done');
