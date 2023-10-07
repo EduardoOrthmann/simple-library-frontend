@@ -4,7 +4,7 @@
 
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content class="content">
-    <div class="row">
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Título</mat-label>
         <input
@@ -14,6 +14,20 @@
           formControlName="title"
         />
       </mat-form-field>
+
+      <div
+        *ngIf="
+          bookForm.controls['title'].invalid &&
+          bookForm.controls['title'].touched &&
+          bookForm.controls['title'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("title") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>ISBN</mat-label>
         <input
@@ -23,23 +37,19 @@
           formControlName="isbn"
         />
       </mat-form-field>
+      <div
+        *ngIf="
+          bookForm.controls['isbn'].invalid &&
+          bookForm.controls['isbn'].touched &&
+          bookForm.controls['isbn'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("isbn") }}</mat-error>
+      </div>
     </div>
 
-    <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Descrição</mat-label>
-        <textarea
-          matInput
-          placeholder="Ex: O Senhor dos Anéis é um livro de fantasia épica..."
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
-          formControlName="description"
-        ></textarea>
-      </mat-form-field>
-    </div>
-
-    <div class="row">
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Ano de publicação</mat-label>
         <input
@@ -49,6 +59,20 @@
           formControlName="publicationYear"
         />
       </mat-form-field>
+
+      <div
+        *ngIf="
+          bookForm.controls['publicationYear'].invalid &&
+          bookForm.controls['publicationYear'].touched &&
+          bookForm.controls['publicationYear'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("publicationYear") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Quantidade</mat-label>
         <input
@@ -58,9 +82,20 @@
           formControlName="quantity"
         />
       </mat-form-field>
+
+      <div
+        *ngIf="
+          bookForm.controls['quantity'].invalid &&
+          bookForm.controls['quantity'].touched &&
+          bookForm.controls['quantity'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("quantity") }}</mat-error>
+      </div>
     </div>
 
-    <div class="row">
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Gênero</mat-label>
         <mat-select formControlName="genre">
@@ -69,9 +104,20 @@
           <mat-option value="adventure">Aventura</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div
+        *ngIf="
+          bookForm.controls['genre'].invalid &&
+          bookForm.controls['genre'].touched &&
+          bookForm.controls['genre'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("genre") }}</mat-error>
+      </div>
     </div>
 
-    <div class="row">
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Autor</mat-label>
         <mat-select formControlName="author">
@@ -81,6 +127,19 @@
         </mat-select>
       </mat-form-field>
 
+      <div
+        *ngIf="
+          bookForm.controls['author'].invalid &&
+          bookForm.controls['author'].touched &&
+          bookForm.controls['author'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("author") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Editora</mat-label>
         <mat-select formControlName="publisher">
@@ -89,11 +148,24 @@
           <mat-option value="saraiva">Saraiva</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div
+        *ngIf="
+          bookForm.controls['publisher'].invalid &&
+          bookForm.controls['publisher'].touched &&
+          bookForm.controls['publisher'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("publisher") }}</mat-error>
+      </div>
     </div>
   </div>
 
   <div mat-dialog-actions class="actions">
-    <button mat-raised-button [mat-dialog-close]="false" type="button">Cancelar</button>
+    <button mat-raised-button [mat-dialog-close]="false" type="button">
+      Cancelar
+    </button>
     <button
       mat-raised-button
       color="primary"

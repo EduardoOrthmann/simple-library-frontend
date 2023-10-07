@@ -22,15 +22,58 @@ export class AddEditBookDialogComponent implements OnInit {
     private snackbarService: SnackbarService
   ) {
     this.bookForm = this.fb.group({
-      title: ['', Validators.required],
-      isbn: ['', Validators.required],
-      description: ['', Validators.required],
-      publicationYear: ['', Validators.required],
-      quantity: ['', Validators.required],
-      genre: ['', Validators.required],
-      author: ['', Validators.required],
-      publisher: ['', Validators.required],
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ],
+      ],
+      isbn: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(13),
+          Validators.maxLength(13),
+          Validators.pattern(/^[0-9]*$/),
+        ],
+      ],
+      publicationYear: [
+        '',
+        [Validators.required, Validators.max(new Date().getFullYear())],
+      ],
+      quantity: ['', [Validators.required, Validators.max(9999)]],
+      genre: ['', [Validators.required]],
+      author: ['', [Validators.required]],
+      publisher: ['', [Validators.required]],
     });
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.bookForm.get(controlName);
+
+    if (control?.hasError('required')) {
+      return 'Esse campo é obrigatório';
+    }
+
+    if (control?.hasError('minlength')) {
+      return `O mínimo de caracteres é ${control.errors?.['minlength'].requiredLength}`;
+    }
+
+    if (control?.hasError('maxlength')) {
+      return `O máximo de caracteres é ${control.errors?.['maxlength'].requiredLength}`;
+    }
+
+    if (control?.hasError('max')) {
+      return `O número máximo é de ${control.errors?.['max'].max}`;
+    }
+
+    if (control?.hasError('pattern')) {
+      return 'Esse campo aceita apenas números';
+    }
+
+    return '';
   }
 
   ngOnInit(): void {

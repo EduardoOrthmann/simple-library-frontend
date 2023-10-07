@@ -18,7 +18,6 @@ export class BooksComponent implements OnInit {
     'id',
     'title',
     'isbn',
-    'description',
     'publicationYear',
     'quantity',
     'genre',

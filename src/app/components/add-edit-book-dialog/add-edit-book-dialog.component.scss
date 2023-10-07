@@ -5,6 +5,11 @@
   padding: 1rem;
 }
 
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .row {
   display: flex;
   gap: 1rem;
