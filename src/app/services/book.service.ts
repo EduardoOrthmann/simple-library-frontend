@@ -4,13 +4,14 @@ import Book from '../interfaces/Book';
 import { BaseCrudService } from './base-crud.service';
 import { Observable } from 'rxjs';
 import Genre from 'src/app/interfaces/Genre';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService extends BaseCrudService<Book, string> {
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:8080/book');
+    super(http, `${environment.apiUrl}/book`);
   }
 
   override getAll(): Observable<Book[]> {

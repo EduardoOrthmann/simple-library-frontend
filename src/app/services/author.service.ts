@@ -4,13 +4,14 @@ import { BaseCrudService } from './base-crud.service';
 import Author from '../interfaces/Author';
 import { HttpClient } from '@angular/common/http';
 import AuthorName from '../interfaces/AuthorName';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorService extends BaseCrudService<Author, string> {
   constructor(http: HttpClient) {
-    super(http, 'http://localhost:8080/author');
+    super(http, `${environment.apiUrl}/author`);
   }
 
   getAllNames(): Observable<AuthorName[]> {
