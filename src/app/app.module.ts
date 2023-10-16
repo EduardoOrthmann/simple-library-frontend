@@ -10,9 +10,11 @@ import { AddEditBookDialogComponent } from './components/add-edit-book-dialog/ad
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthorComponent } from './components/author/author.component';
+import { AddEditAuthorDialogComponent } from './components/add-edit-author-dialog/add-edit-author-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, BooksComponent, AddEditBookDialogComponent],
+  declarations: [AppComponent, BooksComponent, AddEditBookDialogComponent, AuthorComponent, AddEditAuthorDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

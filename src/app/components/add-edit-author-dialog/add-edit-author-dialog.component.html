@@ -1,0 +1,90 @@
+<div mat-dialog-title>
+  <h1>Autor</h1>
+</div>
+
+<form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: J. K. Rowling"
+          formControlName="name"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="
+          authorForm.controls['name'].invalid &&
+          authorForm.controls['name'].touched &&
+          authorForm.controls['name'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("name") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birth_date" />
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div
+        *ngIf="
+          authorForm.controls['birth_date'].invalid &&
+          authorForm.controls['birth_date'].touched &&
+          authorForm.controls['birth_date'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("birth_date") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Nacionalidade</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: Inglaterra"
+          formControlName="nationality"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="
+          authorForm.controls['nationality'].invalid &&
+          authorForm.controls['nationality'].touched &&
+          authorForm.controls['nationality'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("nationality") }}</mat-error>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-raised-button [mat-dialog-close]="false" type="button">
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [mat-dialog-close]="true"
+    >
+      {{ data ? "Atualizar" : "Adicionar" }}
+    </button>
+  </div>
+</form>
