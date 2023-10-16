@@ -1,3 +1,6 @@
+import AuthorName from "./AuthorName";
+import PublisherName from "./PublisherName";
+
 export default interface Book {
   id: string;
   title: string;
@@ -6,6 +9,6 @@ export default interface Book {
   publicationYear: number;
   quantity: number;
   genre: string;
-  author: string;
-  publisher: string;
+  author: AuthorName;
+  publisher: PublisherName;
 }

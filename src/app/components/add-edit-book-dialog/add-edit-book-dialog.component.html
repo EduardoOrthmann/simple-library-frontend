@@ -56,19 +56,19 @@
           matInput
           type="number"
           placeholder="Ex: 1954"
-          formControlName="publicationYear"
+          formControlName="publication_year"
         />
       </mat-form-field>
 
       <div
         *ngIf="
-          bookForm.controls['publicationYear'].invalid &&
-          bookForm.controls['publicationYear'].touched &&
-          bookForm.controls['publicationYear'].dirty
+          bookForm.controls['publication_year'].invalid &&
+          bookForm.controls['publication_year'].touched &&
+          bookForm.controls['publication_year'].dirty
         "
         class="error"
       >
-        <mat-error>{{ getErrorMessage("publicationYear") }}</mat-error>
+        <mat-error>{{ getErrorMessage("publication_year") }}</mat-error>
       </div>
     </div>
 
@@ -98,10 +98,8 @@
     <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Gênero</mat-label>
-        <mat-select formControlName="genre">
-          <mat-option value="fantasy">Fantasia</mat-option>
-          <mat-option value="romance">Romance</mat-option>
-          <mat-option value="adventure">Aventura</mat-option>
+        <mat-select formControlName="genre" placeholder="Ex: Fantasia" >
+          <mat-option *ngFor="let genre of genres" [value]="genre.genre">{{ genre.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -120,10 +118,8 @@
     <div class="form-field-container">
       <mat-form-field appearance="outline">
         <mat-label>Autor</mat-label>
-        <mat-select formControlName="author">
-          <mat-option value="jrr">J. R. R. Tolkien</mat-option>
-          <mat-option value="jk">J. K. Rowling</mat-option>
-          <mat-option value="cs">C. S. Lewis</mat-option>
+        <mat-select formControlName="author" placeholder="Ex: J. R. R. Tolkien">
+          <mat-option *ngFor="let author of authorNames" [value]="author.id">{{ author.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -143,9 +139,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Editora</mat-label>
         <mat-select formControlName="publisher">
-          <mat-option value="martins">Martins Fontes</mat-option>
-          <mat-option value="rocco">Rocco</mat-option>
-          <mat-option value="saraiva">Saraiva</mat-option>
+          <mat-option *ngFor="let publisher of publisherNames" [value]="publisher.id">{{ publisher.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 

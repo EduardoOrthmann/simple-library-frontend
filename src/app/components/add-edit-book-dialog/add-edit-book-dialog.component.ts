@@ -1,3 +1,4 @@
+import { AuthorService } from './../../services/author.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -5,6 +6,10 @@ import { BookService } from 'src/app/services/book.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import Book from 'src/app/interfaces/Book';
+import Genre from 'src/app/interfaces/Genre';
+import AuthorName from 'src/app/interfaces/AuthorName';
+import PublisherName from 'src/app/interfaces/PublisherName';
+import { PublisherService } from 'src/app/services/publisher.service';
 
 @Component({
   selector: 'app-add-edit-book-dialog',
@@ -13,10 +18,15 @@ import Book from 'src/app/interfaces/Book';
 })
 export class AddEditBookDialogComponent implements OnInit {
   bookForm: FormGroup;
+  genres!: Genre[];
+  authorNames!: AuthorName[];
+  publisherNames!: PublisherName[];
 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
+    private authorService: AuthorService,
+    private publisherService: PublisherService,
     private dialogRef: MatDialogRef<AddEditBookDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Book,
     private snackbarService: SnackbarService
@@ -39,7 +49,7 @@ export class AddEditBookDialogComponent implements OnInit {
           Validators.pattern(/^[0-9]*$/),
         ],
       ],
-      publicationYear: [
+      publication_year: [
         '',
         [Validators.required, Validators.max(new Date().getFullYear())],
       ],
@@ -47,6 +57,18 @@ export class AddEditBookDialogComponent implements OnInit {
       genre: ['', [Validators.required]],
       author: ['', [Validators.required]],
       publisher: ['', [Validators.required]],
+    });
+
+    this.bookService.getAllGenres().subscribe((genres) => {
+      this.genres = genres;
+    });
+
+    this.authorService.getAllNames().subscribe((authorNames) => {
+      this.authorNames = authorNames;
+    });
+
+    this.publisherService.getAllNames().subscribe((publisherNames) => {
+      this.publisherNames = publisherNames;
     });
   }
 
@@ -78,8 +100,13 @@ export class AddEditBookDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.data) return;
-
-    this.bookForm.patchValue(this.data);
+    
+    this.bookForm.patchValue({
+      ...this.data,
+      genre: this.data.genre,
+      author: this.data.author.id,
+      publisher: this.data.publisher.id,
+    });
   }
 
   onSubmit() {
