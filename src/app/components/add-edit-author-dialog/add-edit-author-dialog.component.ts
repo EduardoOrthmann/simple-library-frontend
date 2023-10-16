@@ -36,7 +36,6 @@ export class AddEditAuthorDialogComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(3),
           Validators.maxLength(100),
         ],
       ],
@@ -82,7 +81,7 @@ export class AddEditAuthorDialogComponent implements OnInit {
   onSubmit() {
     if (this.authorForm.invalid) return;
 
-    const bookObservable = this.data
+    const authorObservable = this.data
       ? this.authorService.update(this.data.id, {
           ...this.authorForm.value,
           birth_date:
@@ -94,7 +93,7 @@ export class AddEditAuthorDialogComponent implements OnInit {
             this.authorForm.value.birth_date.toLocaleDateString('pt-BR'),
         });
 
-    bookObservable.subscribe({
+    authorObservable.subscribe({
       next: () => {
         this.snackbarService.openSnackBar(
           this.data

@@ -1,0 +1,90 @@
+<div mat-dialog-title>
+  <h1>Autor</h1>
+</div>
+
+<form [formGroup]="publisherForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: Rocco..."
+          formControlName="name"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="
+          publisherForm.controls['name'].invalid &&
+          publisherForm.controls['name'].touched &&
+          publisherForm.controls['name'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("name") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Endereço</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: Rua dos Caçadores, 123..."
+          formControlName="address"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="
+          publisherForm.controls['address'].invalid &&
+          publisherForm.controls['address'].touched &&
+          publisherForm.controls['address'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("address") }}</mat-error>
+      </div>
+    </div>
+
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Ex: (11) 12344-5678..."
+          formControlName="phone_number"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="
+          publisherForm.controls['phone_number'].invalid &&
+          publisherForm.controls['phone_number'].touched &&
+          publisherForm.controls['phone_number'].dirty
+        "
+        class="error"
+      >
+        <mat-error>{{ getErrorMessage("phone_number") }}</mat-error>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-raised-button [mat-dialog-close]="false" type="button">
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [mat-dialog-close]="true"
+    >
+      {{ data ? "Atualizar" : "Adicionar" }}
+    </button>
+  </div>
+</form>

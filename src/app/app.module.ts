@@ -12,9 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthorComponent } from './components/author/author.component';
 import { AddEditAuthorDialogComponent } from './components/add-edit-author-dialog/add-edit-author-dialog.component';
+import { PublisherComponent } from './components/publisher/publisher.component';
+import { AddEditPublisherDialogComponent } from './components/add-edit-publisher-dialog/add-edit-publisher-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, BooksComponent, AddEditBookDialogComponent, AuthorComponent, AddEditAuthorDialogComponent],
+  declarations: [AppComponent, BooksComponent, AddEditBookDialogComponent, AuthorComponent, AddEditAuthorDialogComponent, PublisherComponent, AddEditPublisherDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
